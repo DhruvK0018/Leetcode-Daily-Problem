@@ -1,0 +1,19 @@
+Leetcode 1509. Minimum Difference Between Largest and Smallest Value in Three Moves
+Approch - In this problem I think of a Greedy Solution which involved sorting and then find out all the pairs which exist with the help of two pointers i,j which are intitialised with 0,n-4 then making a loop to find the min differece among them 
+Code:-
+class Solution {
+public:
+    int minDifference(vector<int>& nums) {
+        int n=nums.size();
+        if(n<=3) return 0;
+        sort(nums.begin(),nums.end());
+        int ans=INT_MAX;
+        int i=0,j=n-4;
+        while(j<n){
+            ans=min(ans,nums[j]-nums[i]);
+            i++;
+            j++;
+        }
+        return ans;
+    }
+};
