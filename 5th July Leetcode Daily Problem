@@ -1,0 +1,57 @@
+Intuition
+After seeing the problem the intution was clear of travesing the whole list and then find out all the critical points in the list.
+
+Approach
+Using 3 pointers i find out all the critical points and then after that saving all of them in a array then find out the min out of the consecutives points as arrray will be a sorted one then returning the answer
+
+Complexity
+Time complexity:
+O(n)
+
+Space complexity:
+O(n)
+
+Code
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+        int n=0;
+        ListNode* temp=head;
+        while(temp!=NULL){
+            n++;
+            temp=temp->next;
+        }
+        if(n<=3) return {-1,-1};
+        vector<int> ans;
+        int i=1;
+        ListNode* prev=head,*curr=head->next,*next=head->next->next;
+        while(next!=NULL){
+            if(prev->val<curr->val && next->val<curr->val){
+                ans.push_back(i);
+            }else if(prev->val>curr->val && next->val>curr->val){
+                ans.push_back(i);
+            }
+            i++;
+            next=next->next;
+            curr=curr->next;
+            prev=prev->next;
+        }
+        n=ans.size();
+        if(n<2) return {-1,-1};
+        int mini=1e9;
+        for(int i=1;i<n;i++){
+            mini=min(mini,ans[i]-ans[i-1]);
+        }
+        return {mini,ans[n-1]-ans[0]};
+    }
+};
