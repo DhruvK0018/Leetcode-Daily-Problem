@@ -1,0 +1,23 @@
+2582. Pass the Pillow
+
+class Solution {
+public:
+    int passThePillow(int n, int time) {
+        int i=1;
+        bool flag=true;
+        while(time--){
+            if(flag){
+                i++;
+                if(i==n){
+                    flag=false;
+                }
+            }else{
+                i--;
+                if(i==1){
+                    flag=true;
+                }
+            }
+        }
+        return i;
+    }
+};
